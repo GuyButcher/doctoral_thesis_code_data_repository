@@ -1,0 +1,369 @@
+{
+  "_schemaVersion": "1.0.0",
+
+  "Amino_Acid_Chain.Amino_Acid_Chain":
+  {
+    "inputs":
+    [
+      {"name":"filename", "kind":"required", "type":[["file=*.pdb"], ["folder"], ["char"]]}      
+    ],
+    "outputs":
+    [
+      {"name":"output", "type":"Amino_Acid_Chain"}
+    ]
+  },
+  "Amino_Acid_Chain.Select_Data":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Amino_Acid_Chain"},
+      {"name":"range", "kind":"required", "type":"vector"}
+    ]
+  },
+  "Amino_Acid_Chain.Make_Figure":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Amino_Acid_Chain"}
+    ]
+  },
+  "Amino_Acid_Chain.Make_Figure_Residue_Labels":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Amino_Acid_Chain"}
+    ]
+  },
+  "Amino_Acid_Chain.Make_Helix_Object_V2":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Amino_Acid_Chain"}
+    ],
+    "outputs":
+    [
+      {"name":"output", "type":"Helix_Object"}
+    ]
+  },
+
+  "Helix_Object.Helix_Object":
+  {
+    "inputs":
+    [
+      {"name":"backbone_positions", "kind":"required", "type":"double"},
+      {"name":"sidechain_positions", "kind":"required", "type":"double"},
+      {"name":"sidechain_sizes", "kind":"ordered", "type":"double"}
+    ]
+  },
+  "Helix_Object.Properties":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Helix_Object"},
+      {"name":"properties", "kind":"required"}
+    ]
+  },
+  "Helix_Object.Generate_Figure":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Helix_Object"}
+    ]
+  },
+  "Helix_Object.Generate_Figure_Thick_Lines":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Helix_Object"}
+    ]
+  },
+  "Helix_Object.Get_Figure_Data":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Helix_Object"}
+    ]
+  },
+  "Helix_Object.Get_Number_Sidechains":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Helix_Object"}
+    ],
+    "outputs":
+    [
+      {"name":"output", "type":"integer"}
+    ]
+  },
+
+  "Joint_Object.Joint_Object":
+  {
+    "inputs":
+    [
+      {"name":"position", "type":"vector"}
+    ]
+  },
+  "Joint_Object.Set_End_Position":
+  {
+    "inputs":
+    [
+      {"name":"position", "kind":"required", "type":"vector"}
+    ]
+  },
+
+
+  "Coordinate_Frame.Coordinate_Frame":
+  {
+    "inputs":
+    [
+      {"name":"object", "kind":"required", "type":[["Helix_Object"],["Joint_Object"],["double"]]},
+      {"name":"parent", "kind":"ordered", "type":"Coordinate_Frame"},
+      {"name":"rotation", "kind":"ordered", "type":"double"},
+      {"name":"translation", "kind":"ordered", "type":"vector"}
+    ],
+    "outputs":
+    [
+      {"name":"self", "type":"Coordinate_Frame"}
+    ]
+  },
+  "Coordinate_Frame.addChild":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"object", "kind":"required", "type":[["Helix_Object"],["Joint_Object"],["double"]]},
+      {"name":"rotation", "kind":"ordered", "type":"double"},
+      {"name":"translation", "kind":"ordered", "type":"vector"}
+    ]
+  },
+  "Coordinate_Frame.Generate_Complete_Figure":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"}
+    ],
+    "outputs":
+    [
+      {"name":"h", "type":"matlab.ui.Figure"}
+    ]
+  },
+  "Coordinate_Frame.Generate_Complete_Figure_Thick_Lines":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"}
+    ],
+    "outputs":
+    [
+      {"name":"h", "type":"matlab.ui.Figure"}
+    ]
+  },
+  "Coordinate_Frame.Set_Position_Frame":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"positionVector", "kind":"required", "type":"vector"}
+    ]
+  },
+  "Coordinate_Frame.Translate_Frame":
+  {
+    "inputs":
+    [
+      {"name":"translationVector", "kind":"required", "type":"vector"}
+    ]
+  },
+  "Coordinate_Frame.Set_Rotation_RM":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"rotationMatrix", "kind":"required", "type":"square"}
+    ]
+  },
+  "Coordinate_Frame.Set_Rotation_AA":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"axis", "kind":"required", "type":"vector"},
+      {"name":"angle", "kind":"required", "type":"double"}
+    ]
+  },
+  "Coordinate_Frame.Set_Orientation":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"axis", "kind":"required", "type":"vector"}
+    ]
+  },
+  "Coordinate_Frame.Rotate_Frame_RM":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"rotationMatrix", "kind":"required", "type":"square"}
+    ]
+  },
+  "Coordinate_Frame.Rotate_Frame_AA":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"axis", "kind":"required", "type":"vector"},
+      {"name":"angle", "kind":"required", "type":"double"}
+    ]
+  },
+  "Coordinate_Frame.Set_Frame_to_Helix_Original":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"}
+    ]
+  },
+  "Coordinate_Frame.Get_Position_World_Frame":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"},
+      {"name":"position", "kind":"required", "type":"vector"}
+    ]
+  },
+  "Coordinate_Frame.Get_Endpoint_Current_Frame":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"}
+    ]
+  },
+  "Coordinate_Frame.Get_Endpoint_Parent_Frame":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"}
+    ]
+  },
+  "Coordinate_Frame.Get_Endpoint_World_Frame":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"}
+    ]
+  },
+  "Coordinate_Frame.Get_Startpoint_World_Frame":
+  {
+    "inputs":
+    [
+      {"name":"self", "kind":"required", "type":"Coordinate_Frame"}
+    ]
+  },
+  "Coordinate_Frame.rotationMatrix":
+  {
+    "inputs":
+    [
+      {"name":"a_axis", "kind":"required", "type":"vector"},
+      {"name":"a_angle", "kind":"required", "type":"double"}
+    ]
+  },
+    "Simulation.Simulation":
+    {
+	"outputs":
+	[
+	    {"name":"self", "type":"Simulation"}
+	]	
+    },
+    "Simulation.Load_Amino_Acid_PDB_File":
+    {
+	"inputs":
+	[
+	    {"name":"filepath", "kind":"required", "type":[["file=*.pdb"], ["folder"], ["char"]]}
+	]
+    },
+    "Simulation.Create_Helix":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"},
+	    {"name":"range1", "kind":"required", "type":"integer"},
+	    {"name":"range2", "kind":"ordered", "type":"integer"}
+	],
+	"outputs":
+	[
+	    {"name":"output", "type":"integer"}
+	]	
+    },
+    "Simulation.Make_Figure":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"}
+	]	
+    },
+    "Simulation.Make_Figure_Coordinate_Frames":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"}
+	]	
+    },
+    "Simulation.Load_PDB_Parallel_Chain":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"}
+	]	
+    },
+    "Simulation.Run_Static_Force":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"},
+	    {"name":"helix_one_index", "kind":"required", "type":"integer"},
+	    {"name":"helix_two_index", "kind":"required", "type":"integer"}
+	],
+	"outputs":
+	[
+	    {"name":"output", "type":"double"}
+	]
+    },
+    
+    "Simulation.Run_Bundle_Static_Force":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"},
+	    {"name":"bundle_pdb_path", "kind":"required", "type":[["file=*.pdb"], ["folder"], ["char"]]},
+	    {"name":"bundle_helix_indeces", "kind":"required", "type":"numeric"}
+	],
+	"outputs":
+	[
+	    {"name":"forceSum", "type":"vector"},
+	    {"name":"forces", "type":"numeric"},
+	    {"name":"combinations", "type":"2d"}
+	]	
+    },
+    "Simulation.Run_Interaction_Mapping":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"},
+	    {"name":"helix_one_index", "kind":"required", "type":"integer"},
+	    {"name":"helix_two_index", "kind":"required", "type":"integer"},
+	    {"name":"angles", "kind":"required", "type":"numeric"}
+	],
+	"outputs":
+	[
+	    {"name":"output", "type":"numeric"}
+	]
+    },
+    "Simulation.Load_PDB_Parallel_Chain":
+    {
+	"inputs":
+	[
+	    {"name":"self", "kind":"required", "type":"Simulation"},
+	    {"name":"forces", "kind":"required", "type":"numeric"}
+	]	
+    }
+}
+ 
