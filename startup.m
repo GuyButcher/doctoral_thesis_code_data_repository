@@ -11,11 +11,29 @@ addpath("functions_and_scripts/");
 fprintf("Adding 'pdb_data' path.\n");
 addpath("pdb_data/");
 
+fprintf("Checking if 'results/' directory exists.\n");
+if(not(isfolder('results/')))
+    fprintf("Creating 'results' directory.\n");
+    mkdir('results');
+end
+
 fprintf("Adding 'results' path.\n");
 addpath("results/");
 
+fprintf("Checking if 'tables/' directory exists.\n");
+if(not(isfolder('tables')))
+    fprintf("Creating 'tables/' directory.\n");
+    mkdir('tables');
+end
+
 fprintf("Adding 'tables' path.\n");
 addpath("tables/");
+
+fprintf("Checking if 'figures/' directory exists.\n");
+if(not(isfolder('figures')))
+    fprintf("Creating 'figures/' directory.\n");
+    mkdir('figures');
+end
 
 fprintf("Adding 'figures' path.\n");
 addpath("figures/");
